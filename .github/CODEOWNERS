@@ -1,0 +1,11 @@
+# Code owners are requested for review automatically.
+# The LAST matching pattern wins. Replace the usernames with your own,
+# or with a partner's username for a real independent review.
+
+*                     @mibrahim234UK
+
+# Mapping rules need the integration owner.
+/mappings/            @mibrahim234UK
+
+# Automation changes need the platform owner.
+/.github/workflows/   @mibrahim234UK

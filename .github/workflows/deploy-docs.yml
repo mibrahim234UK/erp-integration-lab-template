@@ -1,0 +1,61 @@
+name: Deploy (simulated)
+
+# Practice for environments and approvals.
+# Nothing is deployed anywhere: the "deploy" step only prints what it would do.
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Target environment
+        type: choice
+        options:
+          - test
+          - production
+        default: test
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Validate
+        run: node scripts/validate.mjs
+
+      - name: Package
+        run: |
+          mkdir -p dist
+          zip -r dist/mapping-pack.zip mappings docs
+
+      - name: Keep the package as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapping-pack
+          path: dist/mapping-pack.zip
+          retention-days: 7
+
+  deploy:
+    name: deploy
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Protection rules (required reviewers, wait timer, branch limits)
+    # are configured on the environment in Settings > Environments, not here.
+    environment: ${{ inputs.target }}
+    steps:
+      - name: Download the package built above
+        uses: actions/download-artifact@v4
+        with:
+          name: mapping-pack
+
+      - name: Simulated deployment
+        run: |
+          echo "Would deploy mapping-pack.zip to: ${{ inputs.target }}"
+          ls -l mapping-pack.zip
+          echo "No system was changed. This is a learning exercise."

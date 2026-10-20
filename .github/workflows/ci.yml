@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    paths:
+      - "mappings/**"
+      - "docs/**"
+      - "scripts/**"
+      - "**.md"
+      - ".github/workflows/ci.yml"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Least privilege: this workflow only reads the repository.
+permissions:
+  contents: read
+
+# A newer push to the same branch cancels the older, now-outdated run.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    # This job name is what a ruleset's required status check refers to.
+    name: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Validate mappings and Markdown links
+        run: node scripts/validate.mjs

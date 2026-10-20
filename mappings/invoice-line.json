@@ -1,0 +1,48 @@
+{
+  "id": "MAP-INV-001",
+  "title": "Supplier invoice line extract",
+  "version": "1.0.0",
+  "owner": "integration-owner",
+  "status": "approved",
+  "notes": "Fictional practice mapping. No real system, customer or supplier data.",
+  "fields": [
+    {
+      "target": "InvoiceNumber",
+      "source": "header.invoice_id",
+      "type": "string",
+      "required": true
+    },
+    {
+      "target": "LineNumber",
+      "source": "line.line_no",
+      "type": "integer",
+      "required": true
+    },
+    {
+      "target": "ItemNumber",
+      "source": "line.item_code",
+      "type": "string",
+      "required": true
+    },
+    {
+      "target": "Quantity",
+      "source": "line.qty_invoiced",
+      "type": "decimal",
+      "required": true,
+      "quantityBasis": "invoiced",
+      "example": "Ordered 10, delivered 6, invoiced 4: send 4."
+    },
+    {
+      "target": "UnitPrice",
+      "source": "line.unit_price",
+      "type": "decimal",
+      "required": true
+    },
+    {
+      "target": "CurrencyCode",
+      "source": "header.currency",
+      "type": "string",
+      "required": true
+    }
+  ]
+}

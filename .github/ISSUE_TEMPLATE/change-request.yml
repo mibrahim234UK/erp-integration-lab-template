@@ -1,0 +1,62 @@
+name: Change request
+description: Ask for a change to a mapping, document or workflow.
+title: "[Change]: "
+labels: ["change-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use invented data only. Do not paste customer data, credentials or screenshots of real systems.
+  - type: input
+    id: business-owner
+    attributes:
+      label: Business owner
+      description: Who decides whether the result is correct?
+      placeholder: e.g. AP process owner
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Mapping
+        - Documentation
+        - Workflow / automation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is wrong or missing today?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Observable outcomes. One per line.
+      value: |
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P1 - blocks testing or go-live
+        - P2 - needed this release
+        - P3 - nice to have
+    validations:
+      required: true
+  - type: checkboxes
+    id: data
+    attributes:
+      label: Data check
+      options:
+        - label: This request contains no real customer data or credentials.
+          required: true
