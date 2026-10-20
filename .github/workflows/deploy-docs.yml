@@ -34,7 +34,7 @@ jobs:
           zip -r dist/mapping-pack.zip mappings docs
 
       - name: Keep the package as an artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: mapping-pack
           path: dist/mapping-pack.zip
