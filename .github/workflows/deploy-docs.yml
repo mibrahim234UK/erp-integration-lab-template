@@ -50,7 +50,7 @@ jobs:
     environment: ${{ inputs.target }}
     steps:
       - name: Download the package built above
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: mapping-pack
 
