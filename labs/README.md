@@ -20,7 +20,7 @@ Full explanations are in the Beyond ERP Level 2 learning pack.
 ## Lab 1: Repository standards as code
 
 1. Replace the usernames in `.github/CODEOWNERS` and commit.
-2. Open **Issues > New issue**. Notice you can only choose the two forms: blank issues are switched off in `config.yml`.
+2. Open **Issues > New issue**. Contributors without write access see only the two forms, because `config.yml` switches off blank issues. As the owner you still see a blank option, marked for maintainers.
 3. Create a **Change request**: "Add delivery date to the invoice mapping", with two acceptance criteria.
 4. Open any pull request and confirm the description is pre-filled from the PR template.
 
@@ -29,10 +29,13 @@ Full explanations are in the Beyond ERP Level 2 learning pack.
 ## Lab 2: Rulesets that enforce
 
 1. Go to **Settings > Rules > Rulesets**.
-2. Import `.github/rulesets/protect-main.json`, or create the same rules by hand:
-   block deletion and force pushes, require a pull request, require the `validate` status check.
-3. Try to commit directly to `main` in the web editor. GitHub should stop you and offer a branch instead.
-4. Working with a partner? Raise required approvals to 1 and turn on **Require review from Code Owners**.
+2. Select **New ruleset > Import a ruleset** and choose `.github/rulesets/protect-main.json` (download it first).
+   Or create the same rules by hand: restrict deletions, block force pushes, require a pull request,
+   require the `validate` status check.
+3. Try to commit directly to `main` in the web editor. GitHub stops you and offers a branch instead.
+4. Working alone? Keep required approvals at **0**: GitHub does not let you approve your own pull request.
+   Working with a partner? Add them as a collaborator, raise required approvals to 1 and turn on
+   **Require review from Code Owners**.
 
 **Evidence:** the rejected direct change, and the active ruleset.
 
@@ -49,6 +52,7 @@ Full explanations are in the Beyond ERP Level 2 learning pack.
 
 1. **Settings > Environments**: create `test` (no rules) and `production`.
 2. On `production`, add yourself (or a partner) as a **required reviewer**.
+   You can approve your own deployment unless **Prevent self-review** is ticked. In a team, tick it.
 3. **Actions > Deploy (simulated) > Run workflow** with target `test`: it runs straight through.
 4. Run it again with `production`: the `deploy` job waits for approval. Approve it and read the log.
 
@@ -73,19 +77,22 @@ Full explanations are in the Beyond ERP Level 2 learning pack.
 
 ## Lab 7: Supply-chain security
 
-1. **Settings > Advanced Security** (or **Code security**): review what is on for your public repo.
-2. Check the **Insights > Dependency graph** and the Dependabot configuration.
+1. **Settings > Advanced Security** (the name may differ): check whether secret scanning,
+   push protection, Dependabot alerts and code scanning are on for your public repo. Record what you find.
+2. Check **Insights > Dependency graph**, and the pull requests Dependabot opens from `.github/dependabot.yml`.
 3. Leaked-secret drill: read the GitHub guidance on push protection, then write the three steps your team takes if a real credential is committed. Do not commit a real secret.
 
 **Evidence:** your team's three-step response.
 
 ## Lab 8: Copilot as a governed teammate
 
-Requires a GitHub Copilot plan that includes these features.
+Requires a paid GitHub Copilot plan. Copilot Free does not include code review or the cloud agent.
 
 1. Read `.github/copilot-instructions.md`.
-2. Create an issue: "Add CurrencyCode validation to the mapping rules". Assign it to Copilot.
-3. Review the pull request it opens exactly as you would a colleague's: ruleset, CI and review all still apply.
+2. Create an issue: "Add CurrencyCode validation to the mapping rules". Assign it to Copilot
+   (the **Copilot cloud agent**, formerly called the coding agent).
+3. Review the pull request it opens exactly as you would a colleague's. Workflows on its PRs wait until
+   you select **Approve and run workflows**, then the ruleset, CI and review all still apply.
 4. On another PR, request a review from Copilot and compare its comments with your own.
 
 **Evidence:** a Copilot-authored PR that passed the same gate as yours.
