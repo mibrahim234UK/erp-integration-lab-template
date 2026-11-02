@@ -47,3 +47,7 @@ Independent resource, not a GitHub or Microsoft product. GitHub features and pla
 availability change: check the linked GitHub documentation before relying on them.
 
 Licensed under the [MIT License](LICENSE).
+
+## Repository maintenance
+
+Follow [AGENTS.md](AGENTS.md) and the [shared MyWork workflow](docs/WORK-TRACKING.md) for maintenance tasks and linked GitHub evidence.
